@@ -1,0 +1,43 @@
+# Name: 
+# Id: 
+
+# Execution begins at address 0
+    .pos 0
+    irmovq stack, %rsp          # Set up stack pointer
+    call main                   # Execute main program
+    halt                        # Terminate program
+
+
+# Sample linked list
+    .align 8
+ele1:
+    .quad 0x00a
+    .quad ele2
+ele2:
+    .quad 0x0b0
+    .quad ele3
+ele3:
+    .quad 0xc00
+    .quad 0
+
+sum_list:
+    irmovq $0, %rax
+	jmp	L2
+L3:
+	mrmovq 0(%rdi),%rcx          # Get the value in the linked list
+    addq %rcx,%rax              # Add to the result
+	mrmovq 8(%rdi),%rcx         # Find the next element
+    rrmovq %rcx,%rdi            # Move the next element to %rdi
+L2:
+	andq %rdi,%rdi              # Set CC
+	jne	L3
+	ret
+
+
+main:
+    irmovq ele1,%rdi            # Pass the argument
+    call sum_list               # Call
+    ret
+
+    .pos 0x200
+stack:

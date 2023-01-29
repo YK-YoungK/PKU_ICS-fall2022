@@ -1,0 +1,236 @@
+#/* $begin ncopy-ys */
+##################################################################
+# ncopy.ys - Copy a src block of len words to dst.
+# Return the number of positive words (>0) contained in src.
+#
+#
+# Describe how and why you modified the baseline code.
+# 1. I implemented the iaddq instruction in the pipe-full.hcl so that I can add an instant number
+#	 to a register in one instrucion.
+# 2. I used loop unrolling to accerlate the program, with a cycle of 7.
+# 3. To avoid load/use hazard in the loops, I loaded two or three numbers once in the loops each time, 
+#	 so that I can write them to the registers and check whether they are zeros two instructions after
+#	 they are loaded from the memory.
+# 4. When the amount of numbers remaining is less or equal than 7, I applied a trinomial tree to calculate
+#	 the amount of numbers. The motivation is from binary search tree, but since we have jl, je, jg
+#	 conditional jumps here, we can build the tree as follow:
+#                            ?
+#            /               |             \
+#        /   |   \           3         /   |   \ 
+#    0       1       2             4       5       6
+#	 The tree allows us to find out the amount of numbers remaining (when less than 7) in two steps.
+# 5. Notice that we have 15 registers in Y86-64 architechure, that is enough to store 7 elements at the same
+#	 time. But in practice, when dealing with the remaining elements (less than 7), I load them step by step.
+#	 At most times, only after it was confirmed that they are x elements remaining would I load them. For 
+#	 example, in the trinomial search tree described as above, only after the first comparation would I 
+#	 load three elements (if the result is len >= 3).
+# 6. When len == 6 or len == 2, I made some changes in the code, to change the order of storing and comparing
+#	 with zero, since it can avoid some load/use hazard. So it may seem different from the code I use to 
+#	 deal with other situations (len == 1, 3, 4, 5).
+# 7. I have put some same pieces of code in some different places to avoid some use of jump instructions
+#	 (both unconditional and conditional).
+# 8. There are some comments in the code, describing some details.
+#
+##################################################################
+# Do not modify this portion
+# Function prologue.
+# %rdi = src, %rsi = dst, %rdx = len
+ncopy:
+
+##################################################################
+# You can modify this portion
+
+judge:
+	iaddq $-7, %rdx			# len >= 7 ?
+	jge L3					# If so, goto L3
+							# Else, deal with the remaining numbers
+
+Llast:
+	iaddq $4, %rdx			# equivalent to compare %rdx with 3
+	jl Llastl				# if len <= 3, jump to Llastl
+	
+Llastfront: 				# len >= 3
+							# load 3 elements from memory to registers
+	mrmovq 16(%rdi), %r11	# put the last element in the front to avoid load/use hazard
+	mrmovq 8(%rdi), %r10
+	mrmovq (%rdi), %r9
+	je Llast3				# len == 3
+
+	# len >= 4
+	mrmovq 24(%rdi), %r12	# load the 4th element from memory to register
+	iaddq $-2, %rdx			# compare len with 5, in condition of len > 3
+	jl Llast4				# len < 5, that is to say len == 4
+	mrmovq 32(%rdi), %r13	# len >= 5, load the 5th element
+	je Llast5				# len == 5
+	mrmovq 40(%rdi), %r14	# load the 6th(last) element
+
+							# len == 6, excutes from here
+	rmmovq %r13, 32(%rsi)	# move the 5th element first to avoid load/use hazard
+	andq %r13, %r13
+	jle Llast6
+	iaddq $1, %rax
+
+Llast6:
+	rmmovq %r14, 40(%rsi)
+	andq %r14, %r14
+	jle Llast64				# len == 6, jump to the 4th element
+	iaddq $1, %rax
+Llast64:
+	rmmovq %r12, 24(%rsi)
+	andq %r12, %r12
+	jle Llast63
+	iaddq $1, %rax
+Llast63:
+	rmmovq %r11, 16(%rsi)
+	andq %r11, %r11
+	jle Llast62
+	iaddq $1, %rax
+Llast62:
+	rmmovq %r10, 8(%rsi)
+	andq %r10, %r10
+	jle Llast1
+	iaddq $1, %rax
+Llast1:
+	rmmovq %r9, (%rsi)
+	andq %r9, %r9
+	jle Done
+	iaddq $1, %rax
+	ret						# copy routine finished
+
+
+Llast5:						# len == 5, excutes from here
+	rmmovq %r13, 32(%rsi)	# store the element to memory
+	andq %r13, %r13			# val <= 0 ?
+	jle Llast4				# If so, goto Llast4
+	iaddq $1, %rax			# Else, count ++
+
+Llast4:						# len == 4, excutes from here
+	rmmovq %r12, 24(%rsi)
+	andq %r12, %r12
+	jle Llast3
+	iaddq $1, %rax
+
+Llast3:						# len == 3, excutes from here
+	rmmovq %r11, 16(%rsi)
+	andq %r11, %r11
+	jle Llast2
+	iaddq $1, %rax
+
+Llast2:
+	rmmovq %r10, 8(%rsi)
+	andq %r10, %r10
+	jle Llast1
+	iaddq $1, %rax
+
+Llast1:
+	rmmovq %r9, (%rsi)
+	andq %r9, %r9
+	jle Done
+	iaddq $1, %rax
+	ret						# copy routine finished
+
+
+							# main copy routine, using loop unrolling, with a cycle of 7 elements
+L3:							# two elements each time to avoid load/use hazard
+	mrmovq (%rdi), %r10		# read val from src...
+	mrmovq 8(%rdi), %r11	# read val from src...
+	rmmovq %r10, (%rsi)		# ...and store it to dst
+	rmmovq %r11, 8(%rsi)	# ...and store it to dst
+
+	andq %r10, %r10			# the first val <= 0 ?
+	jle L4					# If so, goto L4
+	iaddq $1, %rax			# Else, count ++
+
+L4:
+	andq %r11, %r11			# the second val <= 0 ?
+	jle L5					# If so, goto L5
+	iaddq $1, %rax			# Else, count ++
+	
+L5:							# two elements each time to avoid load/use hazard
+	mrmovq 16(%rdi), %r10	# read val from src...
+	mrmovq 24(%rdi), %r11	# read val from src...
+	rmmovq %r10, 16(%rsi)	# ...and store it to dst
+	rmmovq %r11, 24(%rsi)	# ...and store it to dst
+	
+	andq %r10, %r10			# the first val <= 0 ?
+	jle L6					# If so, goto L6
+	iaddq $1, %rax			# Else, count ++
+
+L6:
+	andq %r11, %r11			# the second val <= 0 ?
+	jle L7					# If so, goto L7
+	iaddq $1, %rax			# Else, count ++
+
+L7:							# three elements each time to avoid load/use hazard
+	mrmovq 32(%rdi), %r10	# read val from src...
+	mrmovq 40(%rdi), %r11	# read val from src...
+	mrmovq 48(%rdi), %r12	# read val from src...
+	rmmovq %r10, 32(%rsi)	# ...and store it to dst
+	rmmovq %r11, 40(%rsi)	# ...and store it to dst
+	rmmovq %r12, 48(%rsi)	# ...and store it to dst
+	
+	andq %r10, %r10			# the first val <= 0 ?
+	jle L8					# If so, goto L8
+	iaddq $1, %rax			# ELse, count ++
+
+L8:
+	andq %r11, %r11 		# the second val <=0 ?
+	jle L9					# If so, goto L9
+	iaddq $1, %rax			# Else, count ++
+
+L9:
+	iaddq $56, %rdi			# finish a cycle copying 7 element, src += 7 * 8
+	iaddq $56, %rsi			# finish a cycle copying 7 element, dst += 7 * 8
+	andq %r12, %r12			# the third val <= 0 ?
+	jle judge				# If so, goto judge
+	iaddq $1, %rax			# count ++
+
+
+							# the code following are equivalent to the code after judge label
+	iaddq $-7, %rdx			# len >= 7 ?
+	jge L3					# If so, goto L3, for another cycle
+							# Else, deal with the remaining numbers
+	iaddq $4, %rdx			# equivalent to compare %rdx with 3
+	jge Llastfront			# If len >= 3, jump back to Llastfront
+
+
+Llastl:						# len < 3
+	iaddq $2, %rdx			# equivalent to compare len with 1
+	mrmovq (%rdi), %r9		# load the first element here, for avoiding load/use hazard later
+	je Llast1behind			# len == 1
+	jg Llast2behind			# len == 2
+	ret						# len == 0
+
+
+Llast2behind:
+	mrmovq 8(%rdi), %r10	# load the second element
+	rmmovq %r9, (%rsi)		# store the first element without load/use hazard now
+	andq %r9, %r9
+	jle Llast2behind2
+	iaddq $1, %rax
+
+Llast2behind2:
+	rmmovq %r10, 8(%rsi)	# store the second element without load/use hazard now
+	andq %r10, %r10
+	jle Done
+	iaddq $1, %rax
+	ret
+
+
+
+Llast1behind:				# len == 1, copy and compare val with 0, then return
+	rmmovq %r9, (%rsi)		# store the first element without load/use hazard now
+	andq %r9, %r9
+	jle Done
+	iaddq $1, %rax
+	
+
+##################################################################
+# Do not modify the following section of code
+# Function epilogue.
+Done:
+	ret
+##################################################################
+# Keep the following label at the end of your function
+End:
+#/* $end ncopy-ys */
