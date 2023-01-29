@@ -26,7 +26,7 @@ Last updated: Jan 29th, 2023
   - 在malloclab中，throughput的成绩与机器性能有关。Autolab的性能与class machines的性能相同，通常远弱于你的电脑。**因此，如果你在上北京大学的ICS课程，我强烈建议你在class machines上完成malloclab。**
   - 在proxylab中，realpages的成绩在class machines上可能会出现波动。此外，网络连接不稳定也会导致realpages中的一些trace无法通过。**因此，如果你相信自己的代码没有问题，可以尝试提交到Autolab上，成绩也许会不同。**
   - **我的解答仅供参考。我不对任何对我的解答的不当使用（包括但不限于抄袭代码并提交等行为）负任何责任。**
-- labs from cmu：一个bomblab和attacklab的自学版本，包含writeup和handout，来自于CS:APP的网站(http://csapp.cs.cmu.edu/)。自学版本可以在个人电脑上完成。我没有完成这一版本的解答，你可以参考以下链接：
+- labs from cmu：一个bomblab和attacklab的自学版本，包含writeup和handout，来自于CS:APP的网站( http://csapp.cs.cmu.edu/ )。自学版本可以在个人电脑上完成。我没有完成这一版本的解答，你可以参考以下链接：
   - bomblab: https://zhuanlan.zhihu.com/p/472178808
   - attacklab: https://zhuanlan.zhihu.com/p/476396465
 - midterm exam：北京大学计算机系统导论课程2012年至2022年期中试题的题目与解答，其中2022年期中试题与解答缺失。**请始终牢记：往年试题中，可能有很多令人迷惑、令人恶心、毫无意义的题目，甚至题目本身可能就有严重错误。因此，在做这些往年试题时，请仔细甄别。**
