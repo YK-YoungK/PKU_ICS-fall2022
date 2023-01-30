@@ -14,7 +14,7 @@ This repository provides some course materials for Introduction to Computer Syst
 - midterm exam: The problems and solutions for midterm exams of ICS in PKU, from year 2012 to year 2022. The problems and solutions for midterm exam of ICS (fall, 2022) were not found. **You should keep in mind that there may be many problems which are confusing, disgusting, meaningless, or even have serious errors. As a result, when you are working on these problems, you should always distinguish them carefully.**
 - final exam: The problems and solutions for midterm exams of ICS in PKU, from year 2012 to year 2022. The problems and solutions for final exam of ICS (fall, 2022 and fall, 2012), and the solutions for final exam of ICS (fall, 2017) were not found. **You should keep in mind that there may be many problems which are confusing, disgusting, meaningless, or even have serious errors. As a result, when you are working on these problems, you should always distinguish them carefully.**
 
-I sincerely hope that this repository can help you pull through when taking course Introduction to Computer Systems in PKU. Besides, I hope the quality of ICS in PKU can be improved in a near future.
+**This repository is only for reference. I am not responsible for any consequence caused by improper use of this repository, including but not limited to copy my solution and hand in.** I sincerely hope that this repository can help you pull through when taking course Introduction to Computer Systems in PKU. Besides, I hope the quality of ICS in PKU can be improved in a near future.
 
 Last updated: Jan 30th, 2023
 
@@ -27,13 +27,13 @@ Last updated: Jan 30th, 2023
   - 在bomblab中，当你引爆炸弹时将会被扣分。一个技巧是所谓的“本地化”，即让bomblab在本地运行且不通知Autolab炸弹爆炸的情况。当你解出所有phase之后，运行原有炸弹并输入所有的正确答案来完成bomblab。关于如何完成bomblab的“本地化”，可以参考这个链接： https://infedg.xyz/index.php/archives/35 。然而，助教基本每年会更新bomblab，来使得这些尝试失效。因此，如果你仅按照上述链接中提到的进行操作，可能无法奏效。至少，在2022年秋季的ICS课程中，需要做更多的修改。“本地化”的基本想法是绕过检查运行机器与联系Autolab的代码。同时，你可以根据函数的名称推断其功能。
   - 在malloclab中，throughput的成绩与机器性能有关。Autolab的性能与class machines的性能相同，通常远弱于你的电脑。**因此，如果你在上北京大学的ICS课程，我强烈建议你在class machines上完成malloclab。**
   - 在proxylab中，realpages的成绩在class machines上可能会出现波动。此外，网络连接不稳定也会导致realpages中的一些trace无法通过。**因此，如果你相信自己的代码没有问题，可以尝试提交到Autolab上，成绩也许会不同。**
-  - **我的解答仅供参考。我不对任何对我的解答的不当使用（包括但不限于抄袭代码并提交等行为）的后果负任何责任。**
+  - **我的解答仅供参考。我不对任何对我的解答的不当使用（包括但不限于抄袭代码并提交等行为）所造成的后果负任何责任。**
 - labs from cmu：一个bomblab和attacklab的自学版本，包含writeup和handout，来自于CS:APP的网站 ( http://csapp.cs.cmu.edu/ )。自学版本可以在个人电脑上完成。我没有完成这一版本的解答，你可以参考以下链接：
   - bomblab: https://zhuanlan.zhihu.com/p/472178808
   - attacklab: https://zhuanlan.zhihu.com/p/476396465
 - midterm exam：北京大学计算机系统导论课程2012年至2022年期中试题的题目与解答，其中2022年期中试题与解答缺失。**请始终牢记：往年试题中，可能有很多令人迷惑、令人恶心、毫无意义的题目，甚至题目本身可能就有严重错误。因此，在做这些往年试题时，请仔细甄别。**
 - final exam：北京大学计算机系统导论课程2012年至2022年期末试题的题目与解答，其中2022, 2012年期末试题与解答以及2017年期末解答缺失。**请始终牢记：往年试题中，可能有很多令人迷惑、令人恶心、毫无意义的题目，甚至题目本身可能就有严重错误。因此，在做这些往年试题时，请仔细甄别。**
 
-希望这份资料能够帮助你“渡劫”成功北京大学的ICS课程。也真诚希望北京大学的ICS教学质量能够在将来得到提升。
+**这份资料仅供参考。我不对任何对这份资料的不当使用（包括但不限于抄袭代码并提交等行为）所造成的后果负任何责任。**希望这份资料能够帮助你“渡劫”成功北京大学的ICS课程。也真诚希望北京大学的ICS教学质量能够在将来得到提升。
 
 最后更新于2023/1/30
