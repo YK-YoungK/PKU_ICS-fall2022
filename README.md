@@ -24,7 +24,7 @@ Last updated: Jan 30th, 2023
 
 - slides：2022年秋季大班课的所有授课课件。每一年的课件几乎一致，因此你可以在课前提前预习课件并在上课时在此课件上做笔记。
 - labs：2022年秋季ICS课程的六个lab，包括datalab, archlab, cachelab, shelllab(也称tshlab), malloclab和proxylab。文件夹中包含了这六个lab的writeup, handout和我的解答。因为bomblab和attacklab需要联网在class machines上完成，故此文件夹中并未提供这两个lab的handout和我的解答。另一版本的bomblab和attacklab（来自CMU）可以在labs from cmu文件夹中找到。令人不悦的是，这些lab几乎每年均会被当年的助教所修改。今年，在shelllab中新增了一个trace，在proxylab中新增了一个令人迷惑的https trace。除此以外，今年的malloclab难度也比去年更大。这果然是PKU的风格。:( 此外，以下还有几点注意事项：
-  - 在bomblab中，当你引爆炸弹时将会被扣分。一个技巧是所谓的“本地化”，即让bomblab在本地运行且不通知Autolab炸弹爆炸的情况。当你解出所有phase之后，运行原有炸弹并输入所有的正确答案来完成bomblab。关于如何完成bomblab的“本地化”，可以参考这个链接： https://infedg.xyz/index.php/archives/35 。然而，助教基本每年会更新bomblab，来使得这些尝试失效。因此，如果你仅按照上述链接中提到的进行操作，可能无法奏效。至少，在2022年秋季的ICS课程中，需要做更多的修改。“本地化”的基本想法是绕过检查运行机器与联系Autolab的代码。同时，你可以根据函数名推断其功能。
+  - 在bomblab中，当你引爆炸弹时将会被扣分。一个技巧是所谓的“本地化”，即让bomblab在本地运行且不通知Autolab炸弹爆炸的情况。当你解出所有phase之后，运行原有炸弹并输入所有的正确答案来完成bomblab。关于如何完成bomblab的“本地化”，可以参考这个链接： https://infedg.xyz/index.php/archives/35 。然而，助教基本每年会更新bomblab，来使得这些尝试失效。因此，如果你仅按照上述链接中提到的进行操作，可能无法奏效。至少，在2022年秋季的ICS课程中，需要做更多的修改。“本地化”的基本想法是绕过检查运行机器与联系Autolab的代码。同时，你可以根据函数的名称推断其功能。
   - 在malloclab中，throughput的成绩与机器性能有关。Autolab的性能与class machines的性能相同，通常远弱于你的电脑。**因此，如果你在上北京大学的ICS课程，我强烈建议你在class machines上完成malloclab。**
   - 在proxylab中，realpages的成绩在class machines上可能会出现波动。此外，网络连接不稳定也会导致realpages中的一些trace无法通过。**因此，如果你相信自己的代码没有问题，可以尝试提交到Autolab上，成绩也许会不同。**
   - **我的解答仅供参考。我不对任何对我的解答的不当使用（包括但不限于抄袭代码并提交等行为）的后果负任何责任。**
