@@ -14,7 +14,9 @@ This repository provides some course materials for Introduction to Computer Syst
 - midterm exam: The problems and solutions for midterm exams of ICS in PKU, from year 2012 to year 2022. The problems and solutions for midterm exam of ICS (fall, 2022) were not found. **You should keep in mind that there may be many problems which are confusing, disgusting, meaningless, or even have serious errors. As a result, when you are working on these problems, you should always distinguish them carefully.**
 - final exam: The problems and solutions for midterm exams of ICS in PKU, from year 2012 to year 2022. The problems and solutions for final exam of ICS (fall, 2022 and fall, 2012), and the solutions for final exam of ICS (fall, 2017) were not found. **You should keep in mind that there may be many problems which are confusing, disgusting, meaningless, or even have serious errors. As a result, when you are working on these problems, you should always distinguish them carefully.**
 
-**This repository is only for reference. I am not responsible for any consequence caused by improper use of this repository, including but not limited to copy my solution and hand in.** I sincerely hope that this repository can help you pull through when taking course Introduction to Computer Systems in PKU. Besides, I hope the quality of ICS in PKU can be improved in a near future.
+**This repository is only for reference. I am not responsible for any consequence caused by improper use of this repository, including but not limited to copy my solution and hand in.**
+
+I sincerely hope that this repository can help you pull through when taking course Introduction to Computer Systems in PKU. Besides, I hope the quality of ICS in PKU can be improved in a near future.
 
 Last updated: Jan 30th, 2023
 
@@ -34,6 +36,8 @@ Last updated: Jan 30th, 2023
 - midterm exam：北京大学计算机系统导论课程2012年至2022年期中试题的题目与解答，其中2022年期中试题与解答缺失。**请始终牢记：往年试题中，可能有很多令人迷惑、令人恶心、毫无意义的题目，甚至题目本身可能就有严重错误。因此，在做这些往年试题时，请仔细甄别。**
 - final exam：北京大学计算机系统导论课程2012年至2022年期末试题的题目与解答，其中2022, 2012年期末试题与解答以及2017年期末解答缺失。**请始终牢记：往年试题中，可能有很多令人迷惑、令人恶心、毫无意义的题目，甚至题目本身可能就有严重错误。因此，在做这些往年试题时，请仔细甄别。**
 
-**这份资料仅供参考。我不对任何对这份资料的不当使用（包括但不限于抄袭代码并提交等行为）所造成的后果负任何责任。** 希望这份资料能够帮助你“渡劫”成功北京大学的ICS课程。也真诚希望北京大学的ICS教学质量能够在将来得到提升。
+**这份资料仅供参考。我不对任何对这份资料的不当使用（包括但不限于抄袭代码并提交等行为）所造成的后果负任何责任。**
+
+希望这份资料能够帮助你“渡劫”成功北京大学的ICS课程。也真诚希望北京大学的ICS教学质量能够在将来得到提升。
 
 最后更新于2023/1/30
